@@ -142,5 +142,16 @@ class Order extends \yii\db\ActiveRecord
             return "Invalid Status";
         }
     }
+    public static function getPaymentMethod($method){
+        if ($method == self::PAYMENT_TYPE_CASH_ON_DELIVERY){
+            return "Cash On Delivery";
+        }
+        elseif ($method == self::PAYMENT_TYPE_STRIPE){
+            return "Stripe";
+        }
+        else{
+            return "Invalid";
+        }
+    }
 
 }

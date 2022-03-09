@@ -13,7 +13,9 @@
             </div>
                <div class="w-100">
                     <span class="reviews">
-                    <i class="fa fa-star"></i> 4.5
+                    <i class="fa fa-star"></i> <?= round
+                        ($model->getAverageRating
+                        ($model->id),1)?>
                 </span>
                </div>
             </div>

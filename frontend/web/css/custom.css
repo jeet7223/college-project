@@ -419,3 +419,37 @@
 .footer-link{
     color: #ffffff !important;
 }
+.payment-method{
+    font-size: 20px;
+    margin-top: 25px;
+}
+.payment-method .heading{
+    font-weight: bolder;
+}
+.dashboard-sub-text{
+    font-size: 16px !important;
+}
+.insight-card{
+    border: 1px solid #fff;
+    background: #fff;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    padding: 1em;
+    margin-bottom: 10px;
+}
+.cards-section{
+    margin-top: 2em;
+}
+.insight-card .value{
+    font-size: 60px;
+    font-weight: bold;
+    color: #d65106;
+    text-align: center;
+}
+.insight-card .label{
+    font-size: 23px;
+    color: #000;
+    text-align: center;
+}
+.graph{
+    margin-top: 20px;
+}

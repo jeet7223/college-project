@@ -132,5 +132,30 @@ class Restaurant extends \yii\db\ActiveRecord
         return $data;
     }
 
+    public function getAverageRating($id){
+        $total_review = \common\models\Review::find()->where(['restaurant_id'=>$id])->count();
+        if ($total_review == 0){
+            return 0;
+        }
+        $reviews = Review::findAll(['restaurant_id'=>$id]);
+        $rating = 0;
+        foreach ($reviews as $review){
+                $rating = $rating + (float)$review->rating;
+        }
+        return $rating / $total_review;
+    }
+    public function getTotalIncome($id){
+        $income = 0;
+        $orders = Order::findAll(['restaurant_id'=>$id]);
+        foreach ($orders as $order){
+            $order_details = OrderDetails::findAll(['order_id'=>$order->id]);
+            foreach ($order_details as $order_detail) {
+                    $item = FoodItem::findOne(['id'=>$order_detail->item_id]);
+                    $income = $income + $order_detail->quantity*(int)$item->item_price;
+            }
+
+        }
+        return $income;
+    }
 
 }

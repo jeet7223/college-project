@@ -37,7 +37,9 @@ use yii\widgets\Pjax;
                                        <ul>
                                            <li>
                                                  <div class="item">
-                                                    <i class="fa fa-star"></i> 4.5
+                                                    <i class="fa fa-star"></i> <?= round
+                                                     ($restaurant->getAverageRating
+                                                     ($restaurant->id),1)?>
                                                 </div>
 
                                                <div class="label">Rating</div>

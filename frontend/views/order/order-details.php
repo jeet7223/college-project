@@ -33,11 +33,12 @@ $review_count = \common\models\Review::find()->where(['order_id'=>$order->id])->
                                          <div class="restaurant-address"><i class="fa fa-map-marker"> </i> <span><?=
                                                  $restaurant->restaurant_address?>, <?= $restaurant->city?>, <?=
                                                  $restaurant->state?></span></div>
-
-
-                                         <div class="payment-method">
-                                             <?= \common\models\Order::?>
+                                         <div class="restaurant-number">
+                                            <i class="fa fa-phone"></i> <?=
+                                             $restaurant->restaurant_contact_number?>
                                          </div>
+
+
                                      </div>
                                  </div>
                              </div>
@@ -54,9 +55,16 @@ $review_count = \common\models\Review::find()->where(['order_id'=>$order->id])->
                                 $customer->customer_address?></span></div>
                     </div>
                     <?php }?>
+                    <div class="payment-method">
+                       <span class="heading"><i class="fa fa-money"></i> Payment Method -:</span>
+                        <span
+                                class="method"> <?=
+                            \common\models\Order::getPaymentMethod
+                            ($order->payment_type)?></span>
+                    </div>
                     <?php Pjax::begin(['id' => 'order-details-section-one']);?>
                     <div class="status-section mt-5">
-                        <div class="status  <?php if($order->order_status >= 
+                        <div class="status  <?php if($order->order_status >=
                             \common\models\Order::ORDER_STATUS_ACCEPT_BY_RESTAURANT ){ echo "completed"; }?>">
                             <?php if($order->order_status >= \common\models\Order::ORDER_STATUS_ACCEPT_BY_RESTAURANT ){ echo '<i class="fa fa-check-circle"></i>'; } else{ echo '<i class="far fa-circle-o"></i>'; }?>
 

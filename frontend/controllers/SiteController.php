@@ -77,7 +77,19 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (Yii::$app->user->isGuest){
+            return $this->render('index');
+        }
+        else{
+            if (Yii::$app->user->can('customer')){
+                return $this->render('index');
+            }
+            if (Yii::$app->user->can('restaurant')){
+                $restaurant  = Restaurant::findOne(['user_id'=>Yii::$app->user->identity->id]);
+                return $this->render('dashboard-restaurant',['restaurant'=>$restaurant]);
+            }
+
+        }
     }
 
     /**
