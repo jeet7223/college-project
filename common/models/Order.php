@@ -22,7 +22,12 @@ use Yii;
 class Order extends \yii\db\ActiveRecord
 {
     const ORDER_STATUS_ACCEPT_BY_RESTAURANT = 0;
+    const ORDER_STATUS_PREPARING = 1;
+    const ORDER_STATUS_PREPARED = 2;
+    const ORDER_STATUS_OUT_FOR_DELIVERY = 3;
+    const ORDER_STATUS_DELIVERED = 4;
     const PAYMENT_TYPE_CASH_ON_DELIVERY = 0;
+    const PAYMENT_TYPE_STRIPE = 1;
     /**
      * {@inheritdoc}
      */
@@ -121,5 +126,21 @@ class Order extends \yii\db\ActiveRecord
         if ($status == 0){
             return "Order Accepted By Restaurant";
         }
+        elseif ($status == 1){
+            return "Order has been preparing";
+        }
+        elseif ($status == 2){
+            return "Order has been prepared";
+        }
+        elseif ($status == 3){
+            return "Out for delivery";
+        }
+        elseif ($status == 4){
+            return "Delivered";
+        }
+        else{
+            return "Invalid Status";
+        }
     }
+
 }

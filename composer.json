@@ -21,7 +21,8 @@
         "yii2mod/yii2-sweet-alert": "*",
         "kartik-v/yii2-widget-fileinput": "dev-master",
         "kartik-v/yii2-widget-select2": "dev-master",
-        "kartik-v/yii2-widget-typeahead": "dev-master"
+        "kartik-v/yii2-widget-typeahead": "dev-master",
+        "kartik-v/yii2-widget-rating": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

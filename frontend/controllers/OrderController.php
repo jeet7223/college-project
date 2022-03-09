@@ -8,12 +8,14 @@ use common\models\ItemCart;
 use common\models\Order;
 use common\models\OrderDetails;
 use common\models\Restaurant;
+use common\models\Review;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use common\models\FoodItem;
 use yii\data\ActiveDataProvider;
@@ -32,9 +34,19 @@ class OrderController extends Controller
                 'rules' => [
 
                     [
-                        'actions' => ['place-order'],
+                        'actions' => ['place-order','review'],
                         'allow' => true,
                         'roles' => ['customer'],
+                    ],
+                    [
+                        'actions' => ['update-status'],
+                        'allow' => true,
+                        'roles' => ['restaurant'],
+                    ],
+                    [
+                        'actions' => ['order-details'],
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
             ],
@@ -73,6 +85,41 @@ class OrderController extends Controller
         Yii::$app->session->setFlash('success', 'Order Placed Successfully');
         return $this->redirect(['cart/cart-items']);
     }
-
+    public function actionOrderDetails($order_id){
+        $order = Order::findOne($order_id);
+        if (empty($order)){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        $restaurant = Restaurant::findOne($order->restaurant_id);
+        $customer = Customer::findOne(['user_id'=>$order->customer_id]);
+        $order_details = OrderDetails::findAll(['order_id'=>$order_id]);
+        return $this->render('order-details',['order'=>$order,'restaurant'=>$restaurant,'customer'=>$customer,'order_details'=>$order_details]);
+    }
+    public function actionUpdateStatus(){
+        if (Yii::$app->request->post()){
+            $order = Order::findOne(Yii::$app->request->post('order_id'));
+            $order->order_status = $order->order_status +1;
+            $order->save();
+            if ($order->order_status == Order::ORDER_STATUS_DELIVERED){
+                Yii::$app->session->setFlash('success', 'Order Completed Successfully');
+                return $this->redirect(['order/order-details','order_id'=>Yii::$app->request->post('order_id')]);
+            }
+           else{
+               return true;
+           }
+        }
+    }
+    public function actionReview($order_id){
+        $order = Order::findOne($order_id);
+        $review = new Review();
+        if ($review->load(Yii::$app->request->post())) {
+            $review->order_id = $order_id;
+            $review->customer_id = $order->customer_id;
+            $review->restaurant_id = $order->restaurant_id;
+            $review->save(false);
+            Yii::$app->session->setFlash('success', 'Review Successfully');
+            return $this->redirect(['order/order-details','order_id'=>$order_id]);
+        }
+    }
 
 }

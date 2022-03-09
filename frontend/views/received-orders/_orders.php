@@ -24,7 +24,11 @@
         </div>
         <div class="w-100">
             <div class="mt-3 float-left">
-                <a href="#" class="btn btn-common">Order Details</a>
+                <a href="<?= \yii\helpers\Url::to(['order/order-details','order_id'=>$model->id])
+                ?>"
+                   class="btn
+                btn-common">Order
+                    Details</a>
             </div>
         </div>
 

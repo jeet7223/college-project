@@ -33,7 +33,9 @@ class Restaurant extends \yii\db\ActiveRecord
     }
     public $search_param_1;
     public $location;
-
+    public $category;
+    public $sub_category;
+    const SCENARIO_SEARCH = 'search';
 
     /**
      * {@inheritdoc}
@@ -49,6 +51,8 @@ class Restaurant extends \yii\db\ActiveRecord
             [['restaurant_contact_number','search_param_1','location' ], 'string', 'max' => 50],
             [['restaurant_image'], 'string', 'max' => 255],
             [['open','close'],'safe'],
+            [['search_param_1','location','restaurant_type','category','sub_category'],
+                'required','on'=>self::SCENARIO_SEARCH]
         ];
     }
 
@@ -69,7 +73,8 @@ class Restaurant extends \yii\db\ActiveRecord
             'restaurant_description' => 'Restaurant Description',
             'restaurant_status' => 'Restaurant Status',
             'open_time' =>'Open At',
-            'close_time'=>'Close At'
+            'close_time'=>'Close At',
+            'search_param_1'=>'Restaurant Or Dishes'
         ];
     }
     public static function getRestaurantType($type){

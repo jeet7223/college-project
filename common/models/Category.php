@@ -12,7 +12,10 @@ use Yii;
  * @property int $status
  */
 class Category extends \yii\db\ActiveRecord
+
 {
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
     /**
      * {@inheritdoc}
      */
