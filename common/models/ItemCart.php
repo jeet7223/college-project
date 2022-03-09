@@ -12,7 +12,7 @@ use Yii;
  * @property int $customer_id
  * @property int $quantity
  * @property string $addedTime
- *
+ * @property int $restaurant_id
  * @property Customer $customer
  * @property FoodItem $item
  */
@@ -33,10 +33,9 @@ class ItemCart extends \yii\db\ActiveRecord
     {
         return [
             [['item_id', 'customer_id', 'quantity'], 'required'],
-            [['item_id', 'customer_id', 'quantity'], 'integer'],
+            [['item_id', 'customer_id', 'quantity','restaurant_id'], 'integer'],
             [['addedTime'], 'safe'],
-            [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
-            [['item_id'], 'exist', 'skipOnError' => true, 'targetClass' => FoodItem::className(), 'targetAttribute' => ['item_id' => 'id']],
+
         ];
     }
 

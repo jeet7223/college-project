@@ -64,6 +64,26 @@ use yii\helpers\Html;
                                     ['class' => 'dropdown-item','data-method' => 'POST']
                                 )
                                 ?>
+                                <?php if (Yii::$app->user->can('customer')) {?>
+                                <a class="dropdown-item" href="<?= yii\helpers\Url::to
+                                (['cart/cart-items'])?>"><i class="fa
+                                fa-shopping-cart"></i> Cart Items</a>
+                                <?php }?>
+                                <?php if (Yii::$app->user->can('customer')) {?>
+                                    <a class="dropdown-item" href="<?= yii\helpers\Url::to
+                                    (['my-orders/index'])?>"><i class="fa
+                                fa-shopping-bag"></i> My Orders</a>
+                                <?php }?>
+                                <?php if (Yii::$app->user->can('restaurant')) {?>
+                                    <a class="dropdown-item" href="<?= yii\helpers\Url::to
+                                    (['received-orders/index'])?>"><i class="fa
+                                fa-shopping-bag"></i> Received Orders</a>
+                                <?php }?>
+                                <?php if (Yii::$app->user->can('restaurant')) {?>
+                                    <a class="dropdown-item" href="<?= yii\helpers\Url::to
+                                    (['item/index'])?>"><i class="fa
+                                fa-list"></i> Menu Items</a>
+                                <?php }?>
                                 <a class="dropdown-item" href="<?= yii\helpers\Url::to(['account/edit-profile'])?>"><i class="fa
                                 fa-edit"></i> Account</a>
                             </div>

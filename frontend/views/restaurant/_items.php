@@ -48,10 +48,11 @@ $script = <<< JS
 $('#quantity-'+'$model->id').change(function(){
           var quantity = $(this).val();
           var item_id = '$model->id';
+          var restaurant_id = '$model->restaurant_id';
           $.ajax({
                 type: "POST",
                 url: "$cart_url",
-                data: {quantity: quantity,item_id:item_id},
+                data: {quantity: quantity,item_id:item_id,restaurant_id:restaurant_id},
                 success: function (data) {
                     $.pjax.reload({container: '#cart-pjax', async: false});
                 },

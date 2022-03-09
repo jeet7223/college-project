@@ -31,8 +31,8 @@ Pjax::begin(['id' => 'cart-pjax']);?>
             </div>
         </div>
         <div class="checkout-button">
-            <a href="<?= \yii\helpers\Url::to(['item/checkout'])?>" class="btn btn-common
-        w-100">Checkout
+            <a href="<?= \yii\helpers\Url::to(['cart/cart-items'])?>" class="btn btn-common
+        w-100" data-pjax="0">Checkout
                 <i class="fa fa-arrow-right"></i>
             </a>
         </div>

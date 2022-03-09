@@ -34,7 +34,7 @@ class CartController extends Controller
                 'rules' => [
 
                     [
-                        'actions' => ['add-item'],
+                        'actions' => ['add-item','cart-items'],
                         'allow' => true,
                         'roles' => ['customer'],
                     ],
@@ -53,6 +53,14 @@ class CartController extends Controller
     public function actionAddItem(){
      $item_id = Yii::$app->request->post('item_id');
      $quantity = Yii::$app->request->post('quantity');
+     $restaurant_id = Yii::$app->request->post('restaurant_id');
+     $get_res_count = ItemCart::find()->where(['customer_id'=>Yii::$app->user->identity->id,
+         'restaurant_id'=>$restaurant_id])->count();
+     $get_all_count = ItemCart::find()->where(['customer_id'=>Yii::$app->user->identity->id])->count();
+     if ($get_all_count >0 and $get_res_count == 0){
+         ItemCart::deleteAll(['customer_id'=>Yii::$app->user->identity->id]);
+     }
+
 
      $cart = ItemCart::find()->where(['customer_id'=>Yii::$app->user->identity->id,
          'item_id'=>$item_id])->one();
@@ -61,6 +69,7 @@ class CartController extends Controller
             $cart = new ItemCart();
             $cart->item_id  = $item_id;
             $cart->customer_id = Yii::$app->user->identity->id;
+            $cart->restaurant_id = $restaurant_id;
         }
         else{
             return true;
@@ -77,5 +86,10 @@ class CartController extends Controller
      return true;
 
 
+    }
+    public function actionCartItems(){
+      $cart = ItemCart::findOne(['customer_id'=>Yii::$app->user->identity->id]);
+      $restaurant = Restaurant::findOne($cart->restaurant_id);
+      return  $this->render('cart-item',['restaurant'=>$restaurant]);
     }
 }

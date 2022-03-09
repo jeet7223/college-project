@@ -327,3 +327,33 @@
 .checkout-button{
     margin-top: 15px;
 }
+.cart-customer .total-value{
+    float: none !important;
+}
+.restaurant-cart-section .restaurant-image{
+    height: 120px;
+}
+.restaurant-cart-section .restaurant-details-cart{
+    margin: 0 30px;
+}
+.restaurant-cart-section .item-name{
+    font-size: 22px;
+}
+.restaurant-cart-section .restaurant-address{
+    font-size: 13px;
+}
+.restaurant-cart-section{
+    margin: 30px 0;
+}
+.order-card{
+    padding:  15px 25px !important;
+}
+.order-grid .restaurant-name{
+    font-weight: bold;
+    color: #000;
+    font-size: 20px;
+}
+.order-grid .total-value{
+    float: none;
+    font-size: 15px;
+}
