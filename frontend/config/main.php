@@ -12,6 +12,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'name'=>"Food Delivery",
+    
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
          

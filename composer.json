@@ -23,7 +23,8 @@
         "kartik-v/yii2-widget-select2": "dev-master",
         "kartik-v/yii2-widget-typeahead": "dev-master",
         "kartik-v/yii2-widget-rating": "dev-master",
-        "miloschuman/yii2-highcharts-widget": "^9.0"
+        "miloschuman/yii2-highcharts-widget": "^9.0",
+        "stripe/stripe-php": "^7.116"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

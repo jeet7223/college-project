@@ -9,6 +9,7 @@ use common\models\Order;
 use common\models\OrderDetails;
 use common\models\Restaurant;
 use common\models\Review;
+use frontend\models\Charge;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
@@ -34,7 +35,7 @@ class OrderController extends Controller
                 'rules' => [
 
                     [
-                        'actions' => ['place-order','review'],
+                        'actions' => ['place-order','review','charge'],
                         'allow' => true,
                         'roles' => ['customer'],
                     ],
@@ -83,7 +84,7 @@ class OrderController extends Controller
         }
         ItemCart::deleteAll(['customer_id'=>Yii::$app->user->identity->id]);
         Yii::$app->session->setFlash('success', 'Order Placed Successfully');
-        return $this->redirect(['cart/cart-items']);
+        return $this->redirect(['order/order-details','order_id'=>$order->id]);
     }
     public function actionOrderDetails($order_id){
         $order = Order::findOne($order_id);
@@ -119,6 +120,12 @@ class OrderController extends Controller
             $review->save(false);
             Yii::$app->session->setFlash('success', 'Review Successfully');
             return $this->redirect(['order/order-details','order_id'=>$order_id]);
+        }
+    }
+    public function actionCharge($amount){
+        if (Yii::$app->request->post()){
+            Charge::insertCharge($amount);
+            $this->actionPlaceOrder(Order::PAYMENT_TYPE_STRIPE);
         }
     }
 
